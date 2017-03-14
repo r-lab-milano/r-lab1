@@ -1,0 +1,122 @@
+---
+title: "R to Wordpress"
+output:
+ output: html_document 
+---
+
+Let's try to build an addin that publish blog posts from R to WordPress.
+
+A useful resource is on the [yihui.name blog](http://rmarkdown.rstudio.com).
+
+
+
+## Install needed packages
+
+We need to install the RWordpress package (devtools needed) and the knitr package.
+
+
+```{r}
+
+# install.packages('devtools')
+
+# if (!require('RWordPress')) {
+#   devtools::install_github(c("duncantl/XMLRPC", "duncantl/RWordPress"))
+# }
+# 
+# if(!require('knitr')){
+#   install.packages('knitr')  
+# }
+
+
+```
+
+
+Install XML package: failed (Ubuntu)
+
+From [stack overflow](http://stackoverflow.com/questions/7765429/unable-to-install-r-package-in-ubuntu-11-04):
+
+
+sudo apt-get update
+sudo apt-get install libxml2-dev
+
+
+
+## Enable remote publishing
+
+From the [Codex Wordpress guide](https://codex.wordpress.org/XML-RPC_Support): 
+
+> In previous versions of WordPress, XML-RPC was user enabled. To enable, go to Settings > Writing > Remote Publishing and check the checkbox.
+
+To check whether the option is enabled, you need to test the xmlrpc functioning.
+You can do this by going to your web site URL and adding “/xmlrpc.php” to the end (without the quotes). When it loads in your browser, you should see “XML-RPC server accepts POST requests only.” on a line by itself.
+If you see something different, [here](https://jetpack.com/support/getting-started-with-jetpack/troubleshooting-tips/) I found some extra useful tips.
+
+
+
+
+
+## Set login options
+
+From the RWordpress help we can read:
+
+> All the functions require a login and password. This is specified as a named character vector with one element. The value is the password and the name is the login. So we specify this as c(duncan = "mypassword"). Rather than specifying this in each call, we can set the value of the R option WordpressLogin to this vector. By defalt, the functions look there for the login and password.
+
+Then:
+
+```{r}
+# options(WordpressLogin = c(datalamppost = 'rlabtest'),
+#        WordpressURL = 'http://www.datalamppost.altervista.org/xmlrpc.php')
+```
+
+
+
+## Send an html file to wordpress
+
+Here [the function documentation](https://www.rdocumentation.org/packages/knitr/versions/1.15.1/topics/knit2wp):
+
+```{r}
+# setwd()
+# knit2wp('Rmd-to-Wordpress-addin.Rmd', 
+#         title = 'Rmd to WordPress Addin',
+#         action = "newPost",
+#         publish = F)
+```
+
+It worked!!
+
+
+## Edit a post
+
+Now it's fun to see if we can edit the post itself.
+Here is the way:
+
+```{r}
+# knit2wp('Rmd-to-Wordpress-addin.Rmd', 
+#         title = 'Rmd to WordPress Addin',
+#         action = "editPost",
+#         postid = 538,
+#         publish = F)
+```
+
+The post id can be found in the post page itself: [here I found how](https://pagely.com/blog/2015/04/find-post-id-wordpress/)
+
+
+
+
+## Changing ref.label
+
+At the beginning of each chunk there's a ref.label. 
+We should change it according to the article keyword.
+[Suggestion here](https://yihui.name/knitr/options/)
+
+
+
+-------------------------
+
+## Notebook options
+
+Add a chuck: *Ctrl+Alt+I*.
+
+Chunk execution: *Ctrl+Shift+Enter*. 
+
+Html preview: *Ctrl+Shift+K*.
