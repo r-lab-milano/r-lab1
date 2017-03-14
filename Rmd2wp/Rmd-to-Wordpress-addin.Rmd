@@ -110,6 +110,14 @@ We should change it according to the article keyword.
 [Suggestion here](https://yihui.name/knitr/options/)
 
 
+## Adding a figure
+
+```{r cars}
+plot(cars$speed)
+
+```
+
+
 
 -------------------------
 
