@@ -1,0 +1,10 @@
+Package: Somma
+Type: Package
+Title: Sum 2 Numbers In A Fancy Shiny App
+Version: 0.1.0
+Author: Alessandro Pietrelli, Luca Fara, Guglielmo 
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: The title is much more "descriptive" than the description itself!
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
