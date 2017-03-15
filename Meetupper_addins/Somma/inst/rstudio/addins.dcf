@@ -1,0 +1,5 @@
+Name: Sum them all!
+Description: Shiny app to sum 2 numbers
+Binding: shiny_sum
+Interactive: false
+
